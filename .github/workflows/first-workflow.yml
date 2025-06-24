@@ -1,5 +1,5 @@
 name: first-workflow
-on: [push]
+on: workflow_dispatch
 
 jobs:
   shell-cmd-job:
@@ -11,3 +11,20 @@ jobs:
         run: |
           node -v
           npm -v
+  
+  ## 병렬작업 추가
+  parallel-job:
+    runs-on: macos-latest
+    steps:
+      - name: show software version
+        run: sw_vers
+
+  ## 의존성 작업 추가
+  dependant-job:
+    runs-on: windows-latest
+    needs: shell-cmd-job
+    steps:
+      - name: echo a string
+        run: Write-Output "Windows String"
+      - name: Error Step
+        run: doesnotexit
