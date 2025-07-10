@@ -1,0 +1,27 @@
+name: quiz2
+on: [push]
+
+jobs:
+  Multi-Shell:
+    runs-on: windows-latest
+    steps:
+      - name: select uname
+        shell: bash
+        run: 
+          uname -a
+
+      - name: Get-info
+        shell: pwsh
+        run:
+          Get-ComputerInfo
+          
+      - name: Python Shell
+        shell:  python # Step Level Default Shell
+        run: |
+          import sys
+          print(sys.version)  
+
+      - name: Process Version
+        shell:  node {0}
+        run:
+          console.log(process.version)
